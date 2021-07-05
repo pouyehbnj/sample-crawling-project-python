@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table,
+        td {
+            border: 1px solid rgb(8, 6, 150);
+            background-color: #bafaf5;
+            text-align: center;
+
+        }
+
+        th {
+            color: white;
+            background: rgb(7, 155, 241);
+        }
+    </style>
+    <table style="width:100%">
+        <tr>
+            <th>تخفیف</th>
+            <th>قیمت</th>
+            <th>نام محصول</th>
+        </tr>
+        {% for x, y,z in list %}
+        <tr>
+            <td>{{ z }}</td>
+            <td>{{ y }}</td>
+            <td>{{ x }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </body>
+
+</html>

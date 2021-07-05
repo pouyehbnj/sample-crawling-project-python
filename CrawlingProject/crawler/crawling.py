@@ -42,7 +42,7 @@ class offers(object):
                 self.reductions.append(product.find(
                     "div", class_="c-price__discount-oval").find("span").text)
             except:
-                self.reductions.append("No Reduction")
+                self.reductions.append("بدون تخفیف")
 
             df = pd.DataFrame({'Product Name':self.names,'Price':self.prices,'Reductions':self.reductions}) 
             df.to_csv ('products.csv', index=False,encoding='utf-8-sig')
