@@ -15,6 +15,7 @@ sys.path.append(".")
 import matplotlib.pyplot as plt
 import networkx as nx
 from TextRank4Keyword import TextRank4Keyword
+import csv
 
 url1 = "https://www.imdb.com/list/ls097968074/"
 
@@ -67,7 +68,7 @@ keywordLinks={}
 tr4w = TextRank4Keyword()
 for i in range(len(movieData[1])):
   tr4w.analyze(movieData[1][i], candidate_pos = ['NOUN', 'PROPN'], window_size=4, lower=False)
-  list=tr4w.get_keywords(5)
+  list=tr4w.get_keywords(10)
   keywordLinks[movieData[0][i]] = list
   print('keyword of this story line : '+str(movieData[0][i])+' '+str(list))
 
@@ -76,21 +77,21 @@ G = nx.Graph()
 for i in keywordLinks:
         for j in keywordLinks:
                 if i != j:
-                        weight= intersection(keywordLinks[i] , keywordLinks[j])
+                        weight= len(set(keywordLinks[i]).intersection(set(keywordLinks[j])))
                         print(weight)
                         print(i)
                         print(j)
                         G.add_edge(str(i), str(j), weight=weight)
+                        with open(r'imdb.csv', 'a') as f:
+                                writer = csv.writer(f)
+                                fields=[i , j, weight]
+                                writer.writerow(fields)
 
 
 d = nx.degree(G)
 # pos=pos = nx.spring_layout(G, center='array-like',k=0.7)
-# nx.draw(G, pos=pos, with_labels=True, font_weight='bold',
-#         node_color="lime", font_color="red")
-# plt.savefig("edge-sampling.png")
-# plt.show()
-pos = nx.spring_layout(G, k=0.3*1/np.sqrt(len(G.nodes())), iterations=20)
-plt.figure(3, figsize=(30, 30))
-nx.draw(G, pos=pos)
-nx.draw_networkx_labels(G, pos=pos)
+nx.draw(G, with_labels=True, font_weight='bold',
+        node_color="lime", font_color="red")
+plt.savefig("edge-sampling.png")
 plt.show()
+
