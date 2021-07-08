@@ -26,7 +26,7 @@ class offers(object):
 
     def productData(self):
         self.products = self.bodyContent()
-       # print(self.products[0])
+      
         
         for product in self.products:
             try:

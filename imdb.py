@@ -48,12 +48,12 @@ class IMDB(object):
 
                  movieData = [movieTitle, movieDescription , movieLink]
                  return movieData
-def intersection(list1,list2):
-        # a = flatten(list1)
-        # b = flatten(list2)
-        # common_elements = list(set(a).intersection(set(b)))
-        
-        return len(set(list1).intersection(set(list2)))
+         def intersection(self,list1,list2):
+                # a = flatten(list1)
+                # b = flatten(list2)
+                # common_elements = list(set(a).intersection(set(b)))
+                print(set(list1).intersection(set(list2)))
+                return len(set(list1).intersection(set(list2)))
 
 id1 = IMDB(url1)
 #Get Article Title
@@ -67,7 +67,7 @@ keywordLinks={}
 tr4w = TextRank4Keyword()
 for i in range(len(movieData[1])):
   tr4w.analyze(movieData[1][i], candidate_pos = ['NOUN', 'PROPN'], window_size=4, lower=False)
-  list=tr4w.get_keywords(5)
+  list=tr4w.get_keywords(10)
   keywordLinks[movieData[0][i]] = list
   print('keyword of this story line : '+str(movieData[0][i])+' '+str(list))
 
@@ -76,7 +76,7 @@ G = nx.Graph()
 for i in keywordLinks:
         for j in keywordLinks:
                 if i != j:
-                        weight= intersection(keywordLinks[i] , keywordLinks[j])
+                        weight= id1.intersection(keywordLinks[i] , keywordLinks[j])
                         print(weight)
                         print(i)
                         print(j)
